@@ -21,7 +21,7 @@ function App() {
             setData(data.photos)
             break;
         case "search":
-             if (search.current.value==""){
+             if (search.current.value===""){
               search.current.value="apple"
              }
             response = await fetch("https://api.pexels.com/v1/search?query=" + search.current.value + "&per_page=30", header)
