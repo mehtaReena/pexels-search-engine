@@ -15,7 +15,7 @@ function App() {
     let header = { headers: { "Authorization": "563492ad6f9170000100000113f525316273470d9df782d184f60f54" } }
     switch (type) {
         case "initial":
-            response = await fetch("https://api.pexels.com/v1/curated?per_page=30", header)
+            response = await fetch("https://api.pexels.com/v1/curated?per_page=20", header)
             data = await response.json()
              setLoading(false)
             setData(data.photos)
