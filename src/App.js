@@ -4,37 +4,38 @@ import { useEffect, useRef, useState } from "react";
 
 
 function App() {
-	const [data, setData] = useState([]);
-	const [loading, setLoading] = useState(true);
+	let [data, setData] = useState([])
+    let [loading ,setLoading] = useState(true)
 
+    let search = useRef()
 
-  let search = useRef()
-
-	let fetchPictures = async (type) => {
-    let response, data
-    let header = { headers: { "Authorization": "563492ad6f9170000100000113f525316273470d9df782d184f60f54" } }
-    switch (type) {
-        case "initial":
-            response = await fetch("https://api.pexels.com/v1/curated?per_page=20", header)
-            data = await response.json()
-             setLoading(false)
-            setData(data.photos)
-            break;
-        case "search":
-             if (search.current.value===""){
-              search.current.value="apple"
-             }
-            response = await fetch("https://api.pexels.com/v1/search?query=" + search.current.value + "&per_page=30", header)
-            data = await response.json()
-            setData(data.photos)
-            break;
-        default:
-            break;
+    let fetchPictures = async (type) => {
+        let response, data
+        let header = { headers: { "Authorization": "563492ad6f9170000100000188f58713ea724d03b55ed1c1613f75d8" } }
+        switch (type) {
+            case "initial":
+                response = await fetch("https://api.pexels.com/v1/curated?per_page=30", header)
+                data = await response.json();
+                setLoading(false)
+                setData(data.photos)
+                break;
+            case "search":
+                if( search.current.value ===""){
+                    search.current.value="apple"
+                }
+                setLoading(true)
+                response = await fetch("https://api.pexels.com/v1/search?query=" + search.current.value + "&per_page=30", header)
+                data = await response.json();
+                setLoading(false)
+                setData(data.photos)
+                break;
+            default:
+                break;
+        }
     }
-}
 
 
-useEffect(() => fetchPictures("initial"), [])
+    useEffect(() => fetchPictures("initial"), [])
 	return (
 		<div className="container">
 
